@@ -36,6 +36,8 @@ Where the arguments are:
 hello-mongo: Last argument is the name/id of the image. The version can be specified for reproducibility with a colon.    
 ```
 
+Use `docker ps` to check what containers are running.  
+
 ### Prepare data
 Get the content store database dump from a fellow GOV.UK data scientist or developer. Move your data dump of the content store, something like, `content_items.bson` into `/tmp/mongodb`.  
 
@@ -82,6 +84,10 @@ In your browser, you can look at it for sense check by:
 ```
 http://0.0.0.0:8081/
 ```
+
+It should look something like this:
+
+![The Mongo Express User interface inspecting the GOV.UK content store](figures/mongo_express.png)
 
 ### Leveraging the MongoDB with pymongo
 We can connect to and make use of this data for metadata extraction and other uses. In these [notebooks](https://github.com/alphagov/govuk-network-embedding/tree/master/notebooks/db) we extract the structural network, or those pages that have embedded links on each page.  
