@@ -64,6 +64,12 @@ mongorestore -d content_store -c content_items db/content_items.bson
 
 This should start restoring the `content_items` collection in the `content_store` database on the MongoDB instance.  
 
+If you already have previously restored a mongodb then you will need to drop it first, otherwise it won't get replaced with your newer version.
+
+```
+mongorestore --drop -d content_store -c content_items db/content_items.bson
+```
+
 We can access the MongoDB instance from the container with:
 
 ```
