@@ -20,7 +20,13 @@ docker help
 
 ### Get the Image and run the container
 
-The first time you run the following code the Image will need to be downloaded; go make a cup of tea.  
+The first time you run the following code the Image will need to be downloaded
+
+```
+docker pull mongo
+```
+
+Then go make a cup of tea.
 
 ```
 docker run --name govuk -d -v /tmp/mongodb:/data/db -p 27017:27017 hello-mongo
