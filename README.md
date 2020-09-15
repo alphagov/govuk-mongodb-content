@@ -29,7 +29,7 @@ docker pull mongo
 Then go make a cup of tea.
 
 ```
-docker run --name govuk -d -v /tmp/mongodb:/data/db -p 27017:27017 hello-mongo
+docker run --name govuk -d -v /tmp/mongodb:/data/db -p 27017:27017 mongo
 ```
 
 Where the arguments are:  
