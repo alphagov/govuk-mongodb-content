@@ -20,10 +20,16 @@ docker help
 
 ### Get the Image and run the container
 
-The first time you run the following code the Image will need to be downloaded; go make a cup of tea.  
+The first time you run the following code the Image will need to be downloaded
 
 ```
-docker run --name govuk -d -v /tmp/mongodb:/data/db -p 27017:27017 hello-mongo
+docker pull mongo
+```
+
+Then go make a cup of tea whilst waiting for docker to run the image.
+
+```
+docker run --name govuk -d -v /tmp/mongodb:/data/db -p 27017:27017 mongo
 ```
 
 Where the arguments are:  
@@ -34,6 +40,12 @@ Where the arguments are:
 -v: Attach the /tmp/mongodb volume of the host system to /data/db volume of the container.  
 -p: Map the host port to the container port.
 hello-mongo: Last argument is the name/id of the image. The version can be specified for reproducibility with a colon.    
+```
+
+If you already have previously run a mongodb image also called `govuk` then you will need to drop it first.
+
+```
+docker rm -f govuk
 ```
 
 Use `docker ps` to check what containers are running.  
@@ -52,14 +64,14 @@ Open a bash shell in your recently spun-up govuk container with:
 docker exec -it govuk bash
 ```
 
-Check that you can see `content_items.bson` in the correct directory (i.e. the container can access your local volume specified above and the files therein).
+Check that you can see `content_items.bson` in the correct directory (i.e. the container can access your local volume specified above and the files therein). You can do so via the normal command lines operations such as `ls ...`
 
 ### Restore MongoDB from .bson
 
 From the bash shell of the container run:
 
 ```
-mongorestore -d content_store -c content_items db/content_items.bson
+mongorestore -d content_store -c content_items data/db/content_items.bson
 ```
 
 This should start restoring the `content_items` collection in the `content_store` database on the MongoDB instance.  
@@ -67,7 +79,7 @@ This should start restoring the `content_items` collection in the `content_store
 If you already have previously restored a mongodb then you will need to drop it first, otherwise it won't get replaced with your newer version.
 
 ```
-mongorestore --drop -d content_store -c content_items db/content_items.bson
+mongorestore --drop -d content_store -c content_items data/db/content_items.bson
 ```
 
 We can access the MongoDB instance from the container with:
