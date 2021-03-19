@@ -37,7 +37,7 @@ Where the arguments are:
 ```
 --name: Name of the container.  
 -d: Will start the container as a background (daemon) process. Don’t specify this argument to run the container as foreground process.  
--v: Attach the /tmp/mongodb volume of the host system to /data/db volume of the container.  
+-v: Attach the /tmp/mongodb volume of the host system to /data/db volume of the container.  Note to non-MacOS users, `/tmp` might be RAM rather than disk, so use a different path instead (unless you have copious amounts of RAM).  The path can be whatever you like.
 -p: Map the host port to the container port.
 hello-mongo: Last argument is the name/id of the image. The version can be specified for reproducibility with a colon.    
 ```
@@ -53,7 +53,7 @@ Use `docker ps` to check what containers are running.
 You can [stop or kill](https://medium.com/@nagarwal/lifecycle-of-docker-container-d2da9f85959) the container at any time - you can restart it with `docker start govuk`.
 
 ### Prepare data
-Get the content store database dump from a fellow GOV.UK data scientist or developer. Move your data dump of the content store, something like, `content_items.bson` into `/tmp/mongodb`.  
+Get the content store database dump from a fellow GOV.UK data scientist or developer. Move your data dump of the content store, something like, `content_items.bson` into `/tmp/mongodb` (or wherever you chose in the previous `docker run` command).
 
 Your data should be in a directory that your container can now access.  
 
