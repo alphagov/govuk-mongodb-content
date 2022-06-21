@@ -18,21 +18,46 @@ docker help
 
 ## Docker and MongoDB
 
+### Prepare data
+
+Download a copy of the production version of the Content Store. This version can be found in the `govuk-integration-database-backups` AWS S3 bucket in the `mongo-api` folder. The file is called:
+
+```
+{DATETIME}-content_store_production.gz
+```
+
+where `{DATETIME}` is a datetime in `YYYY-MM-DDTHH:MM:SS` format.
+
+If you do not have access to AWS, ask a fellow GOV.UK data scientist or developer for assistance. 
+
+Extract the `content_items.bson` file from the `content_store_production` folder of the downloaded file by entering the following command in your terminal:
+
+```shell
+tar -xvf PATH/TO/DATETIME-content_store_production.gz content_store_production/content_items.bson
+```
+
+The database file `content_items.bson` is now in `content_store_production/`. Move the .bson file into `/tmp/mongodb/` (or wherever you will chose in the `docker run` command in the next section). Note that you may have to create this folder.
+
+Your data should now be in a directory that your container will be able to access.  
+
+
 ### Get the Image and run the container
 
-The first time you run the following code the Image will need to be downloaded
+The first time you run the following code the Image will need to be downloaded:
 
 ```
 docker pull mongo
 ```
 
-Then go make a cup of tea whilst waiting for docker to run the image.
+and wait for docker to run the image.
+
+Next run:
 
 ```
 docker run --name govuk -d -v /tmp/mongodb:/data/db -p 27017:27017 mongo
 ```
 
-Where the arguments are:  
+where the arguments are:  
 
 ```
 --name: Name of the container.  
@@ -42,7 +67,7 @@ Where the arguments are:
 hello-mongo: Last argument is the name/id of the image. The version can be specified for reproducibility with a colon.    
 ```
 
-If you already have previously run a mongodb image also called `govuk` then you will need to drop it first.
+⚠️ If you already have previously run a mongodb image also called `govuk` then you will need to drop it first.
 
 ```
 docker rm -f govuk
@@ -52,12 +77,9 @@ Use `docker ps` to check what containers are running.
 
 You can [stop or kill](https://medium.com/@nagarwal/lifecycle-of-docker-container-d2da9f85959) the container at any time - you can restart it with `docker start govuk`.
 
-### Prepare data
-Get the content store database dump from a fellow GOV.UK data scientist or developer. Move your data dump of the content store, something like, `content_items.bson` into `/tmp/mongodb` (or wherever you chose in the previous `docker run` command).
-
-Your data should be in a directory that your container can now access.  
 
 ### Check for data
+
 Open a bash shell in your recently spun-up govuk container with:
 
 ```
@@ -65,6 +87,12 @@ docker exec -it govuk bash
 ```
 
 Check that you can see `content_items.bson` in the correct directory (i.e. the container can access your local volume specified above and the files therein). You can do so via the normal command lines operations such as `ls ...`
+
+If you followed the instructions so far, you should see `content_items.bson` listend under:
+
+```
+ls data/db
+```
 
 ### Restore MongoDB from .bson
 
@@ -76,7 +104,7 @@ mongorestore -d content_store -c content_items data/db/content_items.bson
 
 This should start restoring the `content_items` collection in the `content_store` database on the MongoDB instance.  
 
-If you already have previously restored a mongodb then you will need to drop it first, otherwise it won't get replaced with your newer version.
+⚠️ If you already have previously restored a mongodb then you will need to drop it first, otherwise it won't get replaced with your newer version.
 
 ```
 mongorestore --drop -d content_store -c content_items data/db/content_items.bson
