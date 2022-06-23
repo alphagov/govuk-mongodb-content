@@ -88,7 +88,7 @@ docker exec -it govuk bash
 
 Check that you can see `content_items.bson` in the correct directory (i.e. the container can access your local volume specified above and the files therein). You can do so via the normal command lines operations such as `ls ...`
 
-If you followed the instructions so far, you should see `content_items.bson` listend under:
+If you followed the instructions so far, you should see `content_items.bson` listed under:
 
 ```
 ls data/db
