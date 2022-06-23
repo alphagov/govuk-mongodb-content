@@ -64,7 +64,7 @@ where the arguments are:
 -d: Will start the container as a background (daemon) process. Don’t specify this argument to run the container as foreground process.  
 -v: Attach the /tmp/mongodb volume of the host system to /data/db volume of the container.  Note to non-MacOS users, `/tmp` might be RAM rather than disk, so use a different path instead (unless you have copious amounts of RAM).  The path can be whatever you like.
 -p: Map the host port to the container port.
-hello-mongo: Last argument is the name/id of the image. The version can be specified for reproducibility with a colon.    
+mongo: Last argument is the name/id of the image. The version can be specified for reproducibility with a colon.    
 ```
 
 ⚠️ If you already have previously run a mongodb image also called `govuk` then you will need to drop it first.
