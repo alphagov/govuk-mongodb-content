@@ -73,9 +73,9 @@ mongo: Last argument is the name/id of the image. The version can be specified f
 docker rm -f govuk
 ```
 
-    Use `docker ps` to check what containers are running.  
+Use `docker ps` to check what containers are running.  
 
-    You can [stop or kill](https://medium.com/@nagarwal/lifecycle-of-docker-container-d2da9f85959) the container at any time - you can restart it with `docker start govuk`.
+You can [stop or kill](https://medium.com/@nagarwal/lifecycle-of-docker-container-d2da9f85959) the container at any time - you can restart it with `docker start govuk`.
 
 
 ### Check for data
@@ -104,7 +104,7 @@ mongorestore -d content_store -c content_items data/db/content_items.bson
 
 This should start restoring the `content_items` collection in the `content_store` database on the MongoDB instance.  
 
-⚠️ If you already have previously restored a mongodb, then you will need to drop it first, otherwise it won't get replaced with your newer version.
+⚠️ If you already have previously restored a mongodb, then you will need to drop it first, otherwise it won't get replaced with your newer version:
 
 ```
 mongorestore --drop -d content_store -c content_items data/db/content_items.bson
