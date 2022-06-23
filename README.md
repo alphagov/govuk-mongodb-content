@@ -36,7 +36,7 @@ Extract the `content_items.bson` file from the `content_store_production` folder
 tar -xvf PATH/TO/DATETIME-content_store_production.gz content_store_production/content_items.bson
 ```
 
-The database file `content_items.bson` is now in `content_store_production/`. Move the .bson file into `/tmp/mongodb/` (or wherever you will chose in the `docker run` command in the next section). Note that you may have to create this folder.
+The database file `content_items.bson` is now in `content_store_production/`. Move the .bson file into `/tmp/mongodb/` (or wherever location you will choose in the `docker run` command in the next section). Note that you may have to create this folder.
 
 Your data should now be in a directory that your container will be able to access.  
 
@@ -49,7 +49,7 @@ The first time you run the following code the Image will need to be downloaded:
 docker pull mongo
 ```
 
-and wait for docker to run the image.
+and wait for docker to run the image. This may take a while.
 
 Next run:
 
@@ -67,15 +67,15 @@ where the arguments are:
 mongo: Last argument is the name/id of the image. The version can be specified for reproducibility with a colon.    
 ```
 
-⚠️ If you already have previously run a mongodb image also called `govuk` then you will need to drop it first.
+⚠️ If you already have previously run a mongodb image also called `govuk`, then you will need to drop it first:
 
 ```
 docker rm -f govuk
 ```
 
-Use `docker ps` to check what containers are running.  
+    Use `docker ps` to check what containers are running.  
 
-You can [stop or kill](https://medium.com/@nagarwal/lifecycle-of-docker-container-d2da9f85959) the container at any time - you can restart it with `docker start govuk`.
+    You can [stop or kill](https://medium.com/@nagarwal/lifecycle-of-docker-container-d2da9f85959) the container at any time - you can restart it with `docker start govuk`.
 
 
 ### Check for data
@@ -104,7 +104,7 @@ mongorestore -d content_store -c content_items data/db/content_items.bson
 
 This should start restoring the `content_items` collection in the `content_store` database on the MongoDB instance.  
 
-⚠️ If you already have previously restored a mongodb then you will need to drop it first, otherwise it won't get replaced with your newer version.
+⚠️ If you already have previously restored a mongodb, then you will need to drop it first, otherwise it won't get replaced with your newer version.
 
 ```
 mongorestore --drop -d content_store -c content_items data/db/content_items.bson
@@ -115,7 +115,7 @@ We can access the MongoDB instance from the container with:
 ```
 mongo 27017
 ```
-Type help for help in the mongo shell.
+Type `help` for help in the mongo shell.
 
 Run some of these commands to test the database is there.  
 
